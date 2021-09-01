@@ -2,7 +2,7 @@
 include_once 'Conectar.php';
 try
 {
-  function CargarRazaMascota()
+  /*function CargarRazaMascota()
   {
 
     $conn = OpenConnection();
@@ -24,7 +24,17 @@ try
          echo json_encode($rows);
       }
 
+    }*/
+
+
+
+    function CargarRazaMascota()
+    {
+    $tmascota = $_POST['tipomascota'];
+    $datos = array('Siames','Caniche' );
+    echo json_encode($datos);
     }
+
     CargarRazaMascota();
 
   }
