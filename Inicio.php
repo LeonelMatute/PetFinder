@@ -34,7 +34,7 @@
       <!-- Tab panes -->
       <div class="tab-content">
         <div class="tab-pane active" id="inicio" role="tabpanel" aria-labelledby="home-tab">
-          <img src="Imagenes/DSC01940.JPG" alt="Furia tomando sol" width="400" height="400">
+        <!--<img src="Imagenes/DSC01940.JPG" alt="Furia tomando sol" width="400" height="400">-->
         </div>
         <div class="tab-pane" id="contacto" role="tabpanel" aria-labelledby="profile-tab">
           <style>
@@ -130,7 +130,7 @@
     function initMap() {
       //MAP OPTIONS
       var options = {
-        zoom:8,
+        zoom:10,
         center:{lat: -34.672501,lng:-58.449722}
       }
       // NEW MAPP
