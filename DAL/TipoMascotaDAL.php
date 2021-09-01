@@ -2,7 +2,7 @@
 include_once 'Conectar.php';
 try
 {
-/*  function CargarTipoMascota()
+  function CargarTipoMascota()
   {
 
     $conn = OpenConnection();
@@ -23,12 +23,6 @@ try
          echo json_encode($rows);
       }
 
-    }*/
-
-    function CargarTipoMascota()
-    {
-      $rows = array('Perro','Gato' );
-      echo json_encode($rows);
     }
 
     CargarTipoMascota();
