@@ -15,9 +15,9 @@
     <label for="formFileMultiple" class="form-label">Seleccione una imagen</label>
     <input  id ="capturadorIMG" class="form-control" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg">
     <label for="exampleColorInput" class="form-label">Color Primario</label>
-    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+    <input id="color1" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
     <label for="exampleColorInput" class="form-label">Color Secundario</label>
-    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#563d7c" title="Choose your color">
+    <input id= "color2" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
   </div>
     <input type="submit" value="Registrar" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary" onclick="CargarModal(event);">
 </form>
@@ -34,11 +34,11 @@
         <div class="mt-3", id="respuestaModel">
         </div>
         <label id = "modelTMascota" class="form-label"></label>
-        <img id="imagenCargada" src="" alt="">
+        <img id="imagenCargada"  width="400" height="400">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-primary">Guardar</button>
       </div>
     </div>
   </div>
@@ -56,7 +56,7 @@ var formularios = document.getElementById('formularioAM')
 
 fetch('DAL/TipoMascotaDAL.php',{method:'post'})
 .then(response => response.json())
-.then(data =>{console.log(data)
+.then(data =>{
 
       var array = data;
       var tiposmascotas = document.getElementById('Tmascotas');
@@ -81,7 +81,7 @@ function CargarRaza()
   //var datos = valor;
   fetch('DAL/RazaDAL.php',{method:'post',body:datos})
   .then(response => response.json())
-  .then(data =>{console.log(data)
+  .then(data =>{
 
         var array = data;
         var raza = document.getElementById('raza');
@@ -109,8 +109,10 @@ function CargarModal(event)
   var modelTMascota = document.getElementById('Tmascotas').value;
   var modelRaza = document.getElementById('raza').value;
   var respuesta = document.getElementById('respuestaModel');
-  respuesta.innerHTML ='<div>Tipo mascota: '+String(modelTMascota)+'</div><br/>'
-  +'<div>Raza: '+String(modelRaza)+'</div>'
-}
+  respuesta.innerHTML ='<div>Tipo mascota: '+String(modelTMascota)+'</div>'
+  +'<div>Raza: '+String(modelRaza)+'</div>'+'Color Primario <br/>'+'<input type="color" class="form-control form-control-color" value="'+document.getElementById('color1').value+'" disabled>' +
+'Color Secundario<input type="color" class="form-control form-control-color mb-3" value="'+document.getElementById('color2').value+'" disabled>';
+ };
+
 
 </script>
