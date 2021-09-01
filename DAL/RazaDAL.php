@@ -7,7 +7,10 @@ try
 
     $conn = OpenConnection();
 
-      $tmascota = $_POST['value'];
+      print_r($_POST);
+      $tmascota = $_POST;
+      echo json_encode($tmascota);
+
       $sql = "EXEC CargarRazaMascota '$tmascota'";
 
       $stmt = sqlsrv_query( $conn, $sql );

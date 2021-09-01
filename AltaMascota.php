@@ -2,7 +2,7 @@
   Ingrese su nombre:
   <input type="text" name="nombre" size="30"><br>
   Seleccione el tipo de mascota:
-  <select id="Tmascotas" name = "Tmascotass" onchange="CargarRaza()">
+  <select id="Tmascotas" method='post' name = "Tmascotass" onchange="CargarRaza()">
   </select>
   Seleccione la raza:
   <select id="raza">
@@ -28,10 +28,9 @@ fetch('DAL/TipoMascotaDAL.php',{method:'post'})
       var tiposmascotas = document.getElementById('Tmascotas');
       for(var i=0;i<array.length;i++)
       {
-      console.log(String(array[i]))
+      console.log(String(array[i]));
       var opt = document.createElement("option");
-      opt.text = String(array[i])
-
+      opt.text = String(array[i]);
       // then append it to the select element
       tiposmascotas.add(opt,tiposmascotas[i]);
 
@@ -46,8 +45,8 @@ function CargarRaza()
 {
   var formularios = document.getElementById('formularioAM')
   //var datos = new FormData(formularios);
-  var valor = (document.getElementById('Tmascotas'));
-  var datos = valor;
+  var valor = document.getElementById('Tmascotas')
+  var datos = document.getElementById('Tmascotas').value;
   console.log(datos);
   fetch('DAL/RazaDAL.php',{method:'post',body:datos})
   .then(response => response.json())
