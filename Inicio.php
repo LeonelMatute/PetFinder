@@ -8,6 +8,20 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
 </head>
+
+  <!-- <style>
+        img{
+        width: 100%;
+      }
+      body {
+      background: url("Imagenes/DSC01940.JPG");
+      background-size: cover;
+      background-repeat: no-repeat;
+      margin: 0;
+      height: 100vh;
+      }
+  </style> -->
+
   <body>
 
     <nav>
@@ -20,13 +34,16 @@
           <button class="nav-link" id="messages-tab" data-bs-toggle="tab" data-bs-target="#registro" type="button" role="tab" aria-controls="messages" aria-selected="false">Registro</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button" role="tab" aria-controls="profile" aria-selected="false">Contacto</button>
+          <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#contacto" type="button" role="tab" aria-controls="profile" aria-selected="false">Mapa</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#cuenta" type="button" role="tab" aria-controls="settings" aria-selected="false">Mi cuenta</button>
+          <button class="nav-link" id="cuenta-tab" data-bs-toggle="tab" data-bs-target="#cuenta" type="button" role="tab" aria-controls="settings" aria-selected="false">Mi cuenta</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#AltaMascota" type="button" role="tab" aria-controls="settings" aria-selected="false">Alta Mascota</button>
+          <button class="nav-link" id="altamascotas-tab" data-bs-toggle="tab" data-bs-target="#AltaMascota" type="button" role="tab" aria-controls="settings" aria-selected="false">Alta Mascota</button>
+        </li>
+        <li class="nav-item" role="presentation">
+          <button class="nav-link" id="listado-tab" data-bs-toggle="tab" data-bs-target="#ListadoMascota" type="button" role="tab" aria-controls="settings" aria-selected="false" onclick="ListarMascotas()">Listado Mascota</button>
         </li>
       </ul>
 
@@ -35,6 +52,7 @@
       <div class="tab-content">
         <div class="tab-pane active" id="inicio" role="tabpanel" aria-labelledby="home-tab">
         <!--<img src="Imagenes/DSC01940.JPG" alt="Furia tomando sol" width="400" height="400">-->
+        <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="">
         </div>
         <div class="tab-pane" id="contacto" role="tabpanel" aria-labelledby="profile-tab">
           <style>
@@ -43,6 +61,12 @@
           <div id="map">
 
           </div>
+        </div>
+        <!--LISTADO MASCOTA-->
+        <div class="tab-pane m-2" id="ListadoMascota" role="tabpanel" aria-labelledby="messages-tab">
+            <?php
+            include "ListadoMascota.php";
+            ?>
         </div>
         <!--REGISTRAR USUARIOS-->
         <div class="tab-pane m-2" id="registro" role="tabpanel" aria-labelledby="settings-tab">
@@ -71,7 +95,7 @@
           <div id="resp"></div>
         </div>
         <!--INGRESAR AL SISTEMA-->
-        <div class="tab-pane m-2" id="cuenta" role="tabpanel" aria-labelledby="messages-tab">
+        <div class="tab-pane m-2" id="cuenta" role="tabpanel" aria-labelledby="altamascotas-tab">
           <form>
             <div class="mb-3">
               <label for="exampleInputEmail1" class="form-label">Email</label>
@@ -90,20 +114,20 @@
           </form>
         </div>
         <!--ALTA MASCOTA-->
-        <div class="tab-pane m-2" id="AltaMascota" role="tabpanel" aria-labelledby="messages-tab">
+        <div class="tab-pane m-2" id="AltaMascota" role="tabpanel" aria-labelledby="listado-tab">
           <?php
           include "AltaMascota.php";
            ?>
         </div>
 
-    </div>
+      </div>
 
 
     <script type="text/javascript">
 
     var formularios = document.getElementById('formulario')
     var respuesta = document.getElementById('respuesta')
-    formulario.addEventListener('submit',function(event)
+    formularios.addEventListener('submit',function(event)
     {
     event.preventDefault();
 
@@ -113,13 +137,13 @@
     .then(response => response.text())
     .then(data =>{
 
-      if(data==='ERROR')
+      if(data==='REGISTRADO CON EXITO')
       {
-        respuesta.innerHTML ='<div class="alert alert-danger" role="alert">ERROR</div>'
+        respuesta.innerHTML = '<div class="alert alert-success" role="alert">'+String(data)+'</div>'
       }
       else
       {
-        respuesta.innerHTML = '<div class="alert alert-success" role="alert">'+String(data)+'</div>'
+        respuesta.innerHTML ='<div class="alert alert-danger" role="alert">'+String(data)+'</div>'
       }
 
     });

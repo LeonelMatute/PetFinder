@@ -9,12 +9,15 @@ try
       $contraseña2  = $_POST['contraseña2'];
       $nombre = $_POST['nombre'];
 
+      $contraseña = password_hash(strval($contraseña),PASSWORD_DEFAULT);
+
+
 
       $sql = "EXEC InsertarUsuario '$email','$contraseña','$nombre'";
 
 
       $stmt = sqlsrv_prepare($conn, $sql);
-      if ($contraseña === $contraseña2)
+    if (password_verify($contraseña2,$contraseña))
       {
         $resultado = sqlsrv_execute($stmt);
         $errores=sqlsrv_errors();

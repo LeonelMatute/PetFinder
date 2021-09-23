@@ -1,4 +1,4 @@
-<form method="post" id="formularioAM">
+<form id="formularioAM" enctype="multipart/form-data">
   <div class = "mb-3">
     <label for="exampleInputEmail1" class="form-label">Ingrese su nombre</label>
     <input name="correo" type="email" class="form-control">
@@ -8,19 +8,29 @@
     Seleccione la raza:
     <select id="raza" class="form-select">
     </select>
-    <label for="exampleInputEmail1" class="form-label">L</label>
-    <input name="correo" type="email" class="form-control">
-    <label for="exampleInputEmail1" class="form-label">Email</label>
-    <input name="correo" type="email" class="form-control">
+    <label for="exampleInputEmail1" class="form-label">Fecha</label>
+
+    <!--OBTENEMOS EL DIA-->
+    <input id="fecha" name="fecha" type='date' class= "m-3" min='1899-01-01' max='2000-13-13'></input>
+    <br>
+    <label for="exampleInputEmail1" class="form-label">Estado</label>
+    <select id = "estado" class="form-select" aria-label="Default select example">
+      <option value="Perdido">Perdido</option>
+      <option value="Encontrado">Encontrado</option>
+    </select>
     <label for="formFileMultiple" class="form-label">Seleccione una imagen</label>
-    <input  id ="capturadorIMG" class="form-control" type="file" id="formFileMultiple" accept="image/png, image/gif, image/jpeg">
+    <input  id ="capturadorIMG" name="foto_mascota" class="form-control" type="file" id="formFileMultiple" accept="image/png, image/jpeg">
     <label for="exampleColorInput" class="form-label">Color Primario</label>
-    <input id="color1" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
+    <input id="color1" name ="color1" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
     <label for="exampleColorInput" class="form-label">Color Secundario</label>
-    <input id= "color2" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
+    <input id= "color2" name="color2" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
   </div>
     <input type="submit" value="Registrar" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary" onclick="CargarModal(event);">
 </form>
+<div class="mt-3", id="respuestaAM">
+</div>
+<div id="resp"></div>
+</div>
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -38,7 +48,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary">Guardar</button>
+        <button type="button" class="btn btn-primary" onclick="AltaMascota(event)">Guardar</button>
       </div>
     </div>
   </div>
@@ -47,50 +57,68 @@
 
 
 
-<script type="text/javascript" onload="CargarTipos(event);">
+<script type="text/javascript" onload="CargarTipos();">
 
-function CargarTipos()
-{
+function CargarDiaMax() {
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1; //January is 0!
+    let yyyy = today.getFullYear();
 
-var formularios = document.getElementById('formularioAM')
+    if (dd < 10) {
+       dd = '0' + dd;
+    }
 
-fetch('DAL/TipoMascotaDAL.php',{method:'post'})
-.then(response => response.json())
-.then(data =>{
+    if (mm < 10) {
+       mm = '0' + mm;
+    }
 
-      var array = data;
-      var tiposmascotas = document.getElementById('Tmascotas');
-      for(var i=0;i<array.length;i++)
-      {
-      var opt = document.createElement("option");
-      opt.text = String(array[i])
-      tiposmascotas.add(opt,tiposmascotas[i]);
-      }
+    today = yyyy + '-' + mm + '-' + dd;
+    document.getElementById("fecha").setAttribute("max", today);
+  }
+
+CargarDiaMax()
+
+function CargarTipos() {
+  let formularios = document.getElementById('formularioAM')
+
+  fetch('DAL/TipoMascotaDAL.php',{method:'post'})
+  .then(response => response.json())
+  .then(data =>{
+
+        var array = data;
+        var tiposmascotas = document.getElementById('Tmascotas');
+        for(var i=0;i<array.length;i++)
+        {
+        var opt = document.createElement("option");
+        opt.text = String(array[i])
+        tiposmascotas.add(opt,tiposmascotas[i]);
+        }
 
 
-})
-}
+      })
+  }
+
 CargarTipos();
 
-function CargarRaza()
-{
-  var formularios = document.getElementById('formularioAM')
-  var datos = new FormData(formularios);
-  var valor = document.getElementById('Tmascotas').value;
+function CargarRaza() {
+  let formularios = document.getElementById('formularioAM')
+  let datos = new FormData(formularios);
+  let valor = document.getElementById('Tmascotas').value;
   datos.append("tipomascota",valor);
   //var datos = valor;
   fetch('DAL/RazaDAL.php',{method:'post',body:datos})
   .then(response => response.json())
   .then(data =>{
 
-        var array = data;
-        var raza = document.getElementById('raza');
+        let array = data;
+        let raza = document.getElementById('raza');
         for (i = raza.length; i >= 0; i--) {
           raza.options[i] = null;
         }
         for(var i=0;i<array.length;i++)
         {
-        var opt = document.createElement("option");
+        let opt = document.createElement("option");
         opt.text = String(array[i])
         raza.add(opt,raza[i]);
         }
@@ -99,20 +127,48 @@ function CargarRaza()
   })
 }
 
-function CargarModal(event)
-{
+function CargarModal(event) {
   event.preventDefault();
-  var imagen = document.getElementById('imagenCargada');
-  var capturador = document.getElementById('capturadorIMG');
+  let imagen = document.getElementById('imagenCargada');
+  let capturador = document.getElementById('capturadorIMG');
   const [file] = capturador.files;
   imagen.src = URL.createObjectURL(file);
-  var modelTMascota = document.getElementById('Tmascotas').value;
-  var modelRaza = document.getElementById('raza').value;
-  var respuesta = document.getElementById('respuestaModel');
+  let modelTMascota = document.getElementById('Tmascotas').value;
+  let modelRaza = document.getElementById('raza').value;
+  let respuesta = document.getElementById('respuestaModel');
   respuesta.innerHTML ='<div>Tipo mascota: '+String(modelTMascota)+'</div>'
   +'<div>Raza: '+String(modelRaza)+'</div>'+'Color Primario <br/>'+'<input type="color" class="form-control form-control-color" value="'+document.getElementById('color1').value+'" disabled>' +
-'Color Secundario<input type="color" class="form-control form-control-color mb-3" value="'+document.getElementById('color2').value+'" disabled>';
- };
+  'Color Secundario<input type="color" class="form-control form-control-color mb-3" value="'+document.getElementById('color2').value+'" disabled>';
+}
 
+
+function AltaMascota(event) {
+    event.preventDefault();
+    let formularios = document.getElementById('formularioAM')
+    var respuesta = document.getElementById('respuestaAM')
+    let datos = new FormData(formularios);
+    let raza = document.getElementById('raza').value;
+    let estado = document.getElementById('estado').value;
+    let alta = 'alta';
+    datos.append("case",alta);
+    datos.append("razaSelect",raza);
+    datos.append("estado",estado);
+    //datos.append("fecha")
+
+    fetch('DAL/MascotaDAL.php',{method:'post',body:datos})
+    .then(response => response.json())
+    .then(data =>{
+      if(data==='REGISTRADO CON EXITO')
+      {
+        respuesta.innerHTML = '<div class="alert alert-success" role="alert">'+String(data)+'</div>'
+      }
+      else
+      {
+        respuesta.innerHTML ='<div class="alert alert-danger" role="alert">'+String(data)+'</div>'
+      }
+      $('#exampleModal').modal('hide');
+    })
+
+  }
 
 </script>
