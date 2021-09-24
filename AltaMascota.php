@@ -19,11 +19,21 @@
       <option value="Encontrado">Encontrado</option>
     </select>
     <label for="formFileMultiple" class="form-label">Seleccione una imagen</label>
-    <input  id ="capturadorIMG" name="foto_mascota" class="form-control" type="file" id="formFileMultiple" accept="image/png, image/jpeg">
-    <label for="exampleColorInput" class="form-label">Color Primario</label>
-    <input id="color1" name ="color1" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
-    <label for="exampleColorInput" class="form-label">Color Secundario</label>
-    <input id= "color2" name="color2" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
+    <input  id ="capturadorIMG" name="foto_mascota" class="form-control mb-3" type="file" id="formFileMultiple" accept="image/png, image/jpeg">
+    <div>
+    <table class = "table table-bordered">
+      <tr>
+        <th scope="col">
+          <label for="exampleColorInput" class="form-label">Color Primario</label>
+          <input id="color1" name ="color1" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
+        </th>
+        <th scope="col">
+          <label for="exampleColorInput" class="form-label">Color Secundario</label>
+          <input id= "color2" name="color2" type="color" class="form-control form-control-color" value="#000" title="Choose your color">
+        </th>
+      </tr>
+    </table>
+  </div>
   </div>
     <input type="submit" value="Registrar" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary" onclick="CargarModal(event);">
 </form>
