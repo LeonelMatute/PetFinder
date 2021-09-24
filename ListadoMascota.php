@@ -6,14 +6,14 @@
             <th>Raza</th>
             <th>Fecha</th>
             <th>Estado</th>
-            <th>Color1</th>
-            <th>Color2</th>
+            <th>Color Primario</th>
+            <th>Color Secundario</th>
             <th>Imagen</th>
           </tr>
         </thead>
         <tbody id="datos_tbody">
           <tr>
-            <td class="text-center" colspan="4">
+            <td class="text-center" colspan="6">
               <b>Sin registros</b>
             </td>
           </tr>
@@ -35,7 +35,7 @@ function ListarMascotas() {
         let rows = '';
         if(typeof json.datos == 'undefined'){
           tbody.html(`<tr>
-            <td class="text-center" colspan="4">
+            <td class="text-center" colspan="6">
               <b>Sin registros xD</b>
             </td>
           </tr>`);

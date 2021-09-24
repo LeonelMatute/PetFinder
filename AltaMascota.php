@@ -34,14 +34,14 @@
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Vista Previa</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <div class="mt-3", id="respuestaModel">
+        <div id="respuestaModel">
         </div>
         <label id = "modelTMascota" class="form-label"></label>
         <img id="imagenCargada"  width="400" height="400">
@@ -136,9 +136,30 @@ function CargarModal(event) {
   let modelTMascota = document.getElementById('Tmascotas').value;
   let modelRaza = document.getElementById('raza').value;
   let respuesta = document.getElementById('respuestaModel');
-  respuesta.innerHTML ='<div>Tipo mascota: '+String(modelTMascota)+'</div>'
-  +'<div>Raza: '+String(modelRaza)+'</div>'+'Color Primario <br/>'+'<input type="color" class="form-control form-control-color" value="'+document.getElementById('color1').value+'" disabled>' +
-  'Color Secundario<input type="color" class="form-control form-control-color mb-3" value="'+document.getElementById('color2').value+'" disabled>';
+  respuesta.innerHTML =(
+  '<div class="row">'+
+      '<div class="col">'+
+      '<table class="table shadow-sm">'+
+          '<thead>'+
+            '<tr>'+
+              '<th>'+'Tipo Mascota'+'</th>'+
+              '<th>'+'Raza'+'</th>'+
+              '<th>'+'Color Primario'+'</th>'+
+              '<th>'+'Color Secundario'+'</th>'+
+            '</tr>'+
+          '</thead>'+
+          '<tbody>'+
+            '<tr>'+
+                '<td>'+String(modelTMascota)+'</td>'+
+                '<td>'+String(modelRaza)+'</td>'+
+                '<td>'+'<input type="color" class="form-control form-control-color mb-3" value="'+document.getElementById('color1').value+'" disabled>'+'</td>'+
+                '<td>'+'<input type="color" class="form-control form-control-color mb-3" value="'+document.getElementById('color2').value+'" disabled>'+'</td>'+
+            '</tr>'+
+          '</tbody>'+
+        '</table>'+
+      '</div>'+
+    '</div>');
+
 }
 
 
