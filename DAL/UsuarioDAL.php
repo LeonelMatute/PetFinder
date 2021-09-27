@@ -39,7 +39,7 @@ function AltaUsuario()
   }
 }
 
-//AltaUsuario();
+AltaUsuario();
 
       // General singleton class.
 class Singleton {
@@ -52,7 +52,7 @@ class Singleton {
   private function __construct($usuario)
   {
     $this->nombre = $usuario;
-    
+
   }
 
   // The object is created from within the class itself
@@ -85,7 +85,7 @@ function PruebaSingleton()
 
   echo json_encode($respuesta);
 }
-PruebaSingleton();
+//PruebaSingleton();
   }
 catch(Exception $e)
 {

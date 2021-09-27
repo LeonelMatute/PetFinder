@@ -42,11 +42,12 @@ function ListarMascotas() {
           return;
         }
         json.datos.forEach((item, i) => {
-          var image = new Image();
+          let image = new Image();
+          let date = JSON.stringify(item.Fecha);
           image.src = item.Imagen;
           rows += `<tr>
                     <td>${item.Nombre_Raza}</td>
-                    <td>${item.Fecha}</td>
+                    <td>${date.substring(9,19)}</td>
                     <td>${item.Estado}</td>
                     <td><input type="color" class="form-control form-control-color mb-3" value="${item.Color1}" disabled></td>
                     <td><input type="color" class="form-control form-control-color mb-3" value="${item.Color2}" disabled></td>
